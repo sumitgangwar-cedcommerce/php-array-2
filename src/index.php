@@ -1,5 +1,6 @@
 <?php
     session_start();
+    if(isset($_COOKIE['login']))  header('location:AdminPage.php');  
     $users = array(
         "Sumit@email.com"=>1234,
         "Shiv@email.com"=>4568,
@@ -12,9 +13,12 @@
         
         $email = $_GET['email'];
         $password = $_GET['password'];
+        $chk = $_GET['chk'];
+        
         // echo "<script>alert(".$users['Sumit@email.com'].")</script>";
         if($users[$email] == $password){
             header('location:AdminPage.php');
+            if($chk == 'on')    setcookie('login' , 1 ,  time() + 2 * 24 * 60 * 60);
             $_SESSION['login'] = 1;
         }  
         else echo '<script>alert("invalid credentials");</script>';
@@ -60,6 +64,9 @@
         <tr>
             <td>Password:-</td>
             <td><input type="password" required name='password'></td>
+        </tr>
+        <tr>
+            <td style="color:black;font-size:2vw;padding-top:3vw;padding-bottom:3vw" colspan="2"><input type='checkbox' name='chk'> Remember Me</td>
         </tr>
         <tr>
             <td colspan="2"><button type="submit">Login</button></td>
