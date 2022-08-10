@@ -1,6 +1,12 @@
 <?php
     session_start();
     if ($_SESSION['login'] !=1) header("location:index.php");
+
+    if(isset($_GET['logout'])){
+        header("location:index.php");
+        setcookie('login' , null , -1);
+        unset($_SESSION['login']);
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,5 +18,11 @@
 </head>
 <body>
     <h1>Welcome to admin page</h1>
+    <form action='#' method='get'>
+        <button type="submit" name='logout'>
+            Logout
+        </button>
+    </form>
+    
 </body>
 </html>
